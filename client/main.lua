@@ -92,6 +92,7 @@ function Process(action, start, tick, finish)
             })
 
             Citizen.CreateThread(function ()
+		local = Action.label
                 if start ~= nil then
                     start()
                 end
@@ -105,6 +106,10 @@ function Process(action, start, tick, finish)
                     end
 
                     if IsEntityDead(ped) and not Action.useWhileDead then
+                        TriggerEvent("progressbar:client:cancel")
+                    end
+
+		    if label == "Hotwiring" and not IsPedInAnyVehicle(PlayerPedId()) then
                         TriggerEvent("progressbar:client:cancel")
                     end
                 end
