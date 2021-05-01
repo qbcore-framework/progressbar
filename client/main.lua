@@ -77,7 +77,6 @@ end
 function Process(action, start, tick, finish)
 	ActionStart()
     Action = action
-    TriggerServerEvent("OpenInventory", true)
     local ped = PlayerPedId()
     if not IsEntityDead(ped) or Action.useWhileDead then
         if not isDoingAction then
@@ -103,17 +102,14 @@ function Process(action, start, tick, finish)
                     end
                     if IsControlJustPressed(0, 200) and Action.canCancel then
                         TriggerEvent("progressbar:client:cancel")
-                        TriggerServerEvent("OpenInventory", false)
                     end
 
                     if IsEntityDead(ped) and not Action.useWhileDead then
                         TriggerEvent("progressbar:client:cancel")
-                        TriggerServerEvent("OpenInventory", false)
                     end
                 end
                 if finish ~= nil then
                     finish(wasCancelled)
-                    TriggerServerEvent("OpenInventory", false)
                 end
             end)
         else
@@ -126,6 +122,7 @@ end
 
 function ActionStart()
     runProgThread = true
+    LocalPlayer.state:set("inv_busy", true, true) -- Busy
     Citizen.CreateThread(function()
         while runProgThread do
             if isDoingAction then
@@ -225,7 +222,7 @@ end
 function Cancel()
     isDoingAction = false
     wasCancelled = true
-
+    LocalPlayer.state:set("inv_busy", false, true) -- Not Busy
     ActionCleanup()
 
     SendNUIMessage({
@@ -236,6 +233,7 @@ end
 function Finish()
     isDoingAction = false
     ActionCleanup()
+    LocalPlayer.state:set("inv_busy", false, true) -- Not Busy
 end
 
 function ActionCleanup()
