@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
-
 html {
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
@@ -61,7 +60,7 @@ body {
 }
 
 .progress-bar {
-    background-color: #396991;
+    background-color: #dc143c !important;
     width: 0%;
     height: 4vh;
     transition: width 0.3s;
