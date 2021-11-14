@@ -78,12 +78,12 @@ function Process(action, start, tick, finish)
                 label = Action.label
             })
 
-            Citizen.CreateThread(function ()
+            CreateThread(function ()
                 if start ~= nil then
                     start()
                 end
                 while isDoingAction do
-                    Citizen.Wait(1)
+                    Wait(1)
                     if tick ~= nil then
                         tick()
                     end
@@ -110,7 +110,7 @@ end
 function ActionStart()
     runProgThread = true
     LocalPlayer.state:set("inv_busy", true, true) -- Busy
-    Citizen.CreateThread(function()
+    CreateThread(function()
         while runProgThread do
             if isDoingAction then
                 if not isAnim then
@@ -139,7 +139,7 @@ function ActionStart()
                     RequestModel(Action.prop.model)
 
                     while not HasModelLoaded(GetHashKey(Action.prop.model)) do
-                        Citizen.Wait(0)
+                        Wait(0)
                     end
 
                     local pCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.0, 0.0)
@@ -170,7 +170,7 @@ function ActionStart()
                         RequestModel(Action.propTwo.model)
 
                         while not HasModelLoaded(GetHashKey(Action.propTwo.model)) do
-                            Citizen.Wait(0)
+                            Wait(0)
                         end
 
                         local pCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.0, 0.0)
@@ -201,7 +201,7 @@ function ActionStart()
 
                 DisableActions(ped)
             end
-            Citizen.Wait(0)
+            Wait(0)
         end
     end)
 end
@@ -247,7 +247,7 @@ end
 function loadAnimDict(dict)
 	while (not HasAnimDictLoaded(dict)) do
 		RequestAnimDict(dict)
-		Citizen.Wait(5)
+		Wait(5)
 	end
 end
 
