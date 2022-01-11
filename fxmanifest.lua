@@ -21,6 +21,7 @@ files {
 
 exports {
     'Progress',
+    'Progressbar',
     'ProgressWithStartEvent',
     'ProgressWithTickEvent',
     'ProgressWithStartAndTick'

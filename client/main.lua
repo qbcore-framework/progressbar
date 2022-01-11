@@ -290,6 +290,26 @@ function DisableActions(ped)
     end
 end
 
+function Progressbar(duration, label)
+	local retval = nil
+	QBCore.Functions.Progressbar("Progressbar", label, duration, false, true, {
+		disableMovement = true,
+		disableCarMovement = true,
+		disableMouse = false,
+		disableCombat = true,
+	}, {}, {}, {}, function()
+		retval = true
+	end, function()
+		retval = false
+	end)
+
+	while retval == nil do
+		Wait(1)
+	end
+
+	return retval
+end
+
 RegisterNetEvent('progressbar:client:progress', function(action, finish)
 	Process(action, nil, nil, finish)
 end)
