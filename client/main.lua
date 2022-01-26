@@ -123,10 +123,25 @@ function ActionStart()
                             end
 
                             local player = PlayerPedId()
-                            if (DoesEntityExist(player) and not IsEntityDead(player)) then
-                                loadAnimDict( Action.animation.animDict)
-                                TaskPlayAnim(player, Action.animation.animDict, Action.animation.anim, 3.0, 3.0, -1, Action.animation.flags, 0, 0, 0, 0 )     
-                            end
+                            CreateThread(function()
+                                local animDictCache = Action.animation.animDict
+                                local animCache = Action.animation.anim
+                                while isDoingAction do
+                                    if not IsEntityPlayingAnim(player, Action.animation.animDict, Action.animation.anim, 3) then
+                                        if (DoesEntityExist(player) and not IsEntityDead(player)) then
+                                            loadAnimDict(Action.animation.animDict)
+                                            TaskPlayAnim(player, Action.animation.animDict, Action.animation.anim, 3.0, 3.0, -1, Action.animation.flags, 0, 0, 0, 0 )     
+                                        end
+                                    end
+                                    Wait(100)
+                                end
+                                if animDictCache and animCache then
+                                    ClearPedSecondaryTask(player)
+                                    StopAnimTask(player, animDictCache, animCache, 1.0)
+                                else
+                                    --ClearPedTasks(player)
+                                end
+                            end)
                         else
                             --TaskStartScenarioInPlace(PlayerPedId(), 'PROP_HUMAN_BUM_BIN', 0, true)
                         end
@@ -196,7 +211,9 @@ function ActionStart()
                         propTwo_net = netid
 
                         isPropTwo = true
+						SetModelAsNoLongerNeeded(Action.propTwo.model)
                     end
+					SetModelAsNoLongerNeeded(Action.prop.model)
                 end
 
                 DisableActions(ped)
@@ -235,10 +252,17 @@ function ActionCleanup()
         end
     end
 
-    DetachEntity(NetToObj(prop_net), 1, 1)
-    DeleteEntity(NetToObj(prop_net))
-    DetachEntity(NetToObj(propTwo_net), 1, 1)
-    DeleteEntity(NetToObj(propTwo_net))
+    if prop_net then
+        DetachEntity(NetToObj(prop_net), 1, 1)
+        DeleteEntity(NetToObj(prop_net))
+    end
+
+    if propTwo_net then
+									
+        DetachEntity(NetToObj(propTwo_net), 1, 1)
+        DeleteEntity(NetToObj(propTwo_net))
+    end
+	
     prop_net = nil
     propTwo_net = nil
     runProgThread = false
