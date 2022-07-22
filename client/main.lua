@@ -45,6 +45,10 @@ RegisterNetEvent('progressbar:client:ToggleBusyness', function(bool)
     isDoingAction = bool
 end)
 
+RegisterNetEvent('progressbar:client:stopinventory', function()
+     ExecuteCommand('closeinv')
+end)
+
 function Progress(action, finish)
 	Process(action, nil, nil, finish)
 end
@@ -89,6 +93,9 @@ function Process(action, start, tick, finish)
                     end
                     if IsControlJustPressed(0, 200) and Action.canCancel then
                         TriggerEvent("progressbar:client:cancel")
+                    end
+		    if IsControlJustPressed(0, 204) then
+                        TriggerEvent("progressbar:client:stopinventory")
                     end
 
                     if IsEntityDead(ped) and not Action.useWhileDead then
