@@ -260,9 +260,12 @@ function DisableActions(ped)
 
     if Action.controlDisables.disableMovement then
         DisableControlAction(0, 30, true) -- disable left/right
+        DisableControlAction(0, 36, true) -- Left CTRL
         DisableControlAction(0, 31, true) -- disable forward/back
         DisableControlAction(0, 36, true) -- INPUT_DUCK
         DisableControlAction(0, 21, true) -- disable sprint
+        DisableControlAction(0, 75, true)  -- Disable exit vehicle
+        DisableControlAction(27, 75, true) -- Disable exit vehicle 
     end
 
     if Action.controlDisables.disableCarMovement then
