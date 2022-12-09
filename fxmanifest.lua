@@ -2,9 +2,9 @@ fx_version 'cerulean'
 game 'gta5'
 
 description 'progressbar'
-version '1.0.0'
+version '1.0.1'
 
-ui_page('html/index.html') 
+ui_page('html/index.html')
 
 client_scripts {
     'client/main.lua',

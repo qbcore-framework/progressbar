@@ -9,10 +9,10 @@ $('document').ready(function() {
 
         $(".progress-container").fadeIn('fast', function() {
             $("#progress-bar").stop().css({"width": 0, "background-color": "#1787e2a6"}).animate({
-              width: '100%'
+            width: '100%'
             }, {
-              duration: parseInt(data.duration),
-              complete: function() {
+            duration: parseInt(data.duration),
+            complete: function() {
                 $(".progress-container").fadeOut('fast', function() {
                     $('#progress-bar').removeClass('cancellable');
                     $("#progress-bar").css("width", 0);
@@ -20,7 +20,7 @@ $('document').ready(function() {
                         })
                     );
                 })
-              }
+            }
             });
         });
     };
@@ -43,7 +43,7 @@ $('document').ready(function() {
     Progressbar.CloseUI = function() {
         $('.main-container').fadeOut('fast');
     };
-    
+
     window.addEventListener('message', function(event) {
         switch(event.data.action) {
             case 'progress':

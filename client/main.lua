@@ -103,7 +103,7 @@ function Process(action, start, tick, finish)
             TriggerEvent("QBCore:Notify", "You are already doing something!", "error")
         end
     else
-        TriggerEvent("QBCore:Notify", "Cant do that action!", "error")
+        TriggerEvent("QBCore:Notify", "Can't do that action!", "error")
     end
 end
 
@@ -124,8 +124,8 @@ function ActionStart()
 
                             local player = PlayerPedId()
                             if (DoesEntityExist(player) and not IsEntityDead(player)) then
-                                loadAnimDict( Action.animation.animDict)
-                                TaskPlayAnim(player, Action.animation.animDict, Action.animation.anim, 3.0, 3.0, -1, Action.animation.flags, 0, 0, 0, 0 )     
+                                LoadAnimDict( Action.animation.animDict)
+                                TaskPlayAnim(player, Action.animation.animDict, Action.animation.anim, 3.0, 3.0, -1, Action.animation.flags, 0, 0, 0, 0 )
                             end
                         else
                             --TaskStartScenarioInPlace(PlayerPedId(), 'PROP_HUMAN_BUM_BIN', 0, true)
@@ -145,27 +145,29 @@ function ActionStart()
                     local pCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.0, 0.0)
                     local modelSpawn = CreateObject(GetHashKey(Action.prop.model), pCoords.x, pCoords.y, pCoords.z, true, true, true)
 
-                    local netid = ObjToNet(modelSpawn)
-                    SetNetworkIdExistsOnAllMachines(netid, true)
-                    NetworkSetNetworkIdDynamic(netid, true)
-                    SetNetworkIdCanMigrate(netid, false)
-                    if Action.prop.bone == nil then
-                        Action.prop.bone = 60309
+                    if DoesEntityExist(modelSpawn) then
+                        local netid = ObjToNet(modelSpawn)
+                        SetNetworkIdExistsOnAllMachines(netid, true)
+                        NetworkSetNetworkIdDynamic(netid, true)
+                        SetNetworkIdCanMigrate(netid, false)
+                        if Action.prop.bone == nil then
+                            Action.prop.bone = 60309
+                        end
+
+                        if Action.prop.coords == nil then
+                            Action.prop.coords = { x = 0.0, y = 0.0, z = 0.0 }
+                        end
+
+                        if Action.prop.rotation == nil then
+                            Action.prop.rotation = { x = 0.0, y = 0.0, z = 0.0 }
+                        end
+
+                        AttachEntityToEntity(modelSpawn, ped, GetPedBoneIndex(ped, Action.prop.bone), Action.prop.coords.x, Action.prop.coords.y, Action.prop.coords.z, Action.prop.rotation.x, Action.prop.rotation.y, Action.prop.rotation.z, 1, 1, 0, 1, 0, 1)
+                        prop_net = netid
+
+                        isProp = true
                     end
 
-                    if Action.prop.coords == nil then
-                        Action.prop.coords = { x = 0.0, y = 0.0, z = 0.0 }
-                    end
-
-                    if Action.prop.rotation == nil then
-                        Action.prop.rotation = { x = 0.0, y = 0.0, z = 0.0 }
-                    end
-
-                    AttachEntityToEntity(modelSpawn, ped, GetPedBoneIndex(ped, Action.prop.bone), Action.prop.coords.x, Action.prop.coords.y, Action.prop.coords.z, Action.prop.rotation.x, Action.prop.rotation.y, Action.prop.rotation.z, 1, 1, 0, 1, 0, 1)
-                    prop_net = netid
-
-                    isProp = true
-                    
                     if not isPropTwo and Action.propTwo ~= nil and Action.propTwo.model ~= nil then
                         RequestModel(Action.propTwo.model)
 
@@ -173,29 +175,31 @@ function ActionStart()
                             Wait(0)
                         end
 
-                        local pCoords = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.0, 0.0)
-                        local modelSpawn = CreateObject(GetHashKey(Action.propTwo.model), pCoords.x, pCoords.y, pCoords.z, true, true, true)
+                        local pCoordsTwo = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.0, 0.0)
+                        local modelSpawnTwo = CreateObject(GetHashKey(Action.propTwo.model), pCoordsTwo.x, pCoordsTwo.y, pCoordsTwo.z, true, true, true)
 
-                        local netid = ObjToNet(modelSpawn)
-                        SetNetworkIdExistsOnAllMachines(netid, true)
-                        NetworkSetNetworkIdDynamic(netid, true)
-                        SetNetworkIdCanMigrate(netid, false)
-                        if Action.propTwo.bone == nil then
-                            Action.propTwo.bone = 60309
+                        if DoesEntityExist(modelSpawnTwo) then
+                            local netid = ObjToNet(modelSpawnTwo)
+                            SetNetworkIdExistsOnAllMachines(netid, true)
+                            NetworkSetNetworkIdDynamic(netid, true)
+                            SetNetworkIdCanMigrate(netid, false)
+                            if Action.propTwo.bone == nil then
+                                Action.propTwo.bone = 60309
+                            end
+
+                            if Action.propTwo.coords == nil then
+                                Action.propTwo.coords = { x = 0.0, y = 0.0, z = 0.0 }
+                            end
+
+                            if Action.propTwo.rotation == nil then
+                                Action.propTwo.rotation = { x = 0.0, y = 0.0, z = 0.0 }
+                            end
+
+                            AttachEntityToEntity(modelSpawnTwo, ped, GetPedBoneIndex(ped, Action.propTwo.bone), Action.propTwo.coords.x, Action.propTwo.coords.y, Action.propTwo.coords.z, Action.propTwo.rotation.x, Action.propTwo.rotation.y, Action.propTwo.rotation.z, 1, 1, 0, 1, 0, 1)
+                            propTwo_net = netid
+
+                            isPropTwo = true
                         end
-
-                        if Action.propTwo.coords == nil then
-                            Action.propTwo.coords = { x = 0.0, y = 0.0, z = 0.0 }
-                        end
-
-                        if Action.propTwo.rotation == nil then
-                            Action.propTwo.rotation = { x = 0.0, y = 0.0, z = 0.0 }
-                        end
-
-                        AttachEntityToEntity(modelSpawn, ped, GetPedBoneIndex(ped, Action.propTwo.bone), Action.propTwo.coords.x, Action.propTwo.coords.y, Action.propTwo.coords.z, Action.propTwo.rotation.x, Action.propTwo.rotation.y, Action.propTwo.rotation.z, 1, 1, 0, 1, 0, 1)
-                        propTwo_net = netid
-
-                        isPropTwo = true
                     end
                 end
 
@@ -235,16 +239,21 @@ function ActionCleanup()
         end
     end
 
-    DetachEntity(NetToObj(prop_net), 1, 1)
-    DeleteEntity(NetToObj(prop_net))
-    DetachEntity(NetToObj(propTwo_net), 1, 1)
-    DeleteEntity(NetToObj(propTwo_net))
+    if DoesEntityExist(prop_net) then
+        DetachEntity(NetToObj(prop_net), 1, 1)
+        DeleteEntity(NetToObj(prop_net))
+    end
+
+    if DoesEntityExist(propTwo_net) then
+        DetachEntity(NetToObj(propTwo_net), 1, 1)
+        DeleteEntity(NetToObj(propTwo_net))
+    end
     prop_net = nil
     propTwo_net = nil
     runProgThread = false
 end
 
-function loadAnimDict(dict)
+function LoadAnimDict(dict)
 	while (not HasAnimDictLoaded(dict)) do
 		RequestAnimDict(dict)
 		Wait(5)
