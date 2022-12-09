@@ -290,6 +290,10 @@ function DisableActions(ped)
     end
 end
 
+function isDoingSomething()
+    return isDoingAction
+end
+
 RegisterNetEvent('progressbar:client:progress', function(action, finish)
 	Process(action, nil, nil, finish)
 end)

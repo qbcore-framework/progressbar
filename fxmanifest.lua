@@ -20,8 +20,9 @@ files {
 }
 
 exports {
-    'Progress',
+	'Progress',
     'ProgressWithStartEvent',
     'ProgressWithTickEvent',
-    'ProgressWithStartAndTick'
+    'ProgressWithStartAndTick',
+    'isDoingSomething'
 }
