@@ -8,7 +8,7 @@ Dependency for creating progressbars in QB-Core.
 
 ### Client
 
-- QBCore.Functions.Progressbar(name, label, duration, useWhileDead, canCancel, disableControls, animation, prop, propTwo, onFinish, onCancel)
+- QBCore.Functions.Progressbar(**name**: string, **label**: string, **duration**: number, **useWhileDead**: boolean, **canCancel**: boolean, **disableControls**: table, **animation**: table, **prop**: table, **propTwo**: table, **onFinish**: function, **onCancel**: function)
   > Create a new progressbar from the built in qb-core functions.<br>
   > **Example:**
   > ```lua
@@ -32,7 +32,7 @@ Dependency for creating progressbars in QB-Core.
 
 ### Client
 
-- Progress(data<string>, handler<function>)
+- Progress(**data**: string, **handler**: function)
   > Creates a new progress bar directly from the export, always use the built in qb-core function if possible.<br>
   > **Example:**
   > ```lua
@@ -71,17 +71,17 @@ Dependency for creating progressbars in QB-Core.
     > local busy = exports["progressbar"]:isDoingSomething()
     > ```
 
-  - ProgressWithStartEvent(data, start, finish)
+  - ProgressWithStartEvent(**data**: table, **start**: function, **finish**: function)
     > Works like a normal progressbar, the data parameter should be the same as the data passed into the `Progress` export above.<br>
     > The start function gets triggered upon the start of the progressbar.<br>
     > The finish handler is the same as the `handler` parameter in the `Progress` export above. 
 
-  - ProgressWithTickEvent(data, tick, finish)
+  - ProgressWithTickEvent(**data**: table, **tick**: function, **finish**: function)
     > Works like a normal progressbar, the data parameter should be the same as the data passed into the `Progress` export above.<br>
     > The tick function gets triggered every frame while the progressbar is active.<br>
     > The finish handler is the same as the `handler` parameter in the `Progress` export above. 
 
-  - ProgressWithTickEvent(data, start, tick, finish)
+  - ProgressWithTickEvent(**data**: table, **start**: function, **tick**: function, **finish**: function)
     > Works like a normal progressbar, the data parameter should be the same as the data passed into the `Progress` export above.<br>
     > The start function gets triggered upon the start of the progressbar.<br>
     > The tick function gets triggered every frame while the progressbar is active.<br>
