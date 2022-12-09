@@ -5,7 +5,7 @@ author "qbcore-framework"
 description 'Dependency for creating progressbars in QB-Core.'
 version '1.0.0'
 
-ui_page "html/index.html'"
+ui_page "html/index.html"
 
 client_script "client/main.lua"
 
