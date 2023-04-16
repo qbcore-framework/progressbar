@@ -100,10 +100,12 @@ function Process(action, start, tick, finish)
                 end
             end)
         else
-            TriggerEvent("QBCore:Notify", "You are already doing something!", "error")
+           -- TriggerEvent("QBCore:Notify", "You are already doing something!", "error")  
+	      ESX.ShowNotification("You are already doing something!")
         end
     else
-        TriggerEvent("QBCore:Notify", "Cant do that action!", "error")
+       -- TriggerEvent("QBCore:Notify", "Cant do that action!", "error")
+          ESX.ShowNotification("Cant do that action!")
     end
 end
 
