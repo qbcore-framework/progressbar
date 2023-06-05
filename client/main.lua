@@ -71,6 +71,7 @@ function Process(action, start, tick, finish)
             wasCancelled = false
             isAnim = false
             isProp = false
+            isPropTwo = false
 
             SendNUIMessage({
                 action = "progress",
