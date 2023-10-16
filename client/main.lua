@@ -230,7 +230,7 @@ function ActionCleanup()
     if Action.animation ~= nil then
         if Action.animation.task ~= nil or (Action.animation.animDict ~= nil and Action.animation.anim ~= nil) then
             ClearPedSecondaryTask(ped)
-            StopAnimTask(ped, Action.animDict, Action.anim, 1.0)
+            StopAnimTask(ped, Action.animation.animDict, Action.animation.anim, 1.0)
         else
             ClearPedTasks(ped)
         end
