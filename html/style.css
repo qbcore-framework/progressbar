@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+
 html {
     overflow: hidden;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -17,52 +18,54 @@ body {
     display: none;
     z-index: 5;
     color: #fff;
-    font-family: 'Poppins', sans-serif;
     width: 15%;
     position: fixed;
-    bottom: 12.65%;
+    bottom: 15%;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
+    font-family: "Poppins", sans-serif;
 }
 
 .progress-labels {
-    width: 100%;
-    height: 4vh;
-    line-height: 4vh;
-    text-align: center;
-    position: absolute;
-    display: inline-block;
-    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.progress-labels div {
+#progress-label {
     font-size: 1.3vh;
     line-height: 4vh;
     position: relative;
     color: #ffffff;
     z-index: 10;
     font-weight: bold;
-    font-family: 'Poppins', sans-serif;
+}
+
+#progress-percentage {
+    font-size: 1.3vh;
+    line-height: 4vh;
+    position: relative;
+    color: #ffffff;
+    z-index: 10;
+    font-weight: bold;
 }
 
 .progress-bar-container {
-    width: 100%;
-    height: 4vh;
     background: rgba(0, 0, 0, 0.246);
-    text-align: left;
-    overflow: hidden;
+    height: 0.5vh;
     position: relative;
     display: block;
-    white-space: nowrap;
     border-radius: 2px;
 }
 
-.progress-bar {
-    background-color: #dc143c !important;
+#progress-bar {
+    background-color: #dc143c;
     width: 0%;
-    height: 4vh;
+    height: 0.5vh;
+    border-radius: 2px;
     transition: width 0.3s;
     transition-timing-function: ease-out;
+    box-shadow: 0 0 10px rgba(220, 20, 60, 0.6);
 }
