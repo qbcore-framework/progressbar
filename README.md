@@ -21,10 +21,10 @@ Dependency for creating progressbars in QB-Core.
   >    animDict = "mp_suicide",
   >    anim = "pill",
   >    flags = 49,
-  >}, {}, {}, function() -- Done
-  >    StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
-  >end, function() -- Cancel
-  >    StopAnimTask(PlayerPedId(), "mp_suicide", "pill", 1.0)
+  >}, {}, {}, function()
+  >    -- Done
+  >end, function()
+  >    -- Cancel
   >end)
   > ```
 
