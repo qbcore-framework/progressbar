@@ -163,8 +163,8 @@ local function ActionCleanup()
     local ped = PlayerPedId()
     if Action.animation then
         if Action.animation.task or (Action.animation.animDict and Action.animation.anim) then
+            StopAnimTask(ped, Action.animation.animDict, Action.animation.anim, 1.0)
             ClearPedSecondaryTask(ped)
-            StopAnimTask(ped, Action.animDict, Action.anim, 1.0)
         else
             ClearPedTasks(ped)
         end
