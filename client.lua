@@ -130,6 +130,7 @@ local function StartProgress(action, onStart, onTick, onFinish)
     local isPlayerDead = IsEntityDead(playerPed)
     if (not isPlayerDead or action.useWhileDead) and not isDoingAction then
         isDoingAction = true
+        LocalPlayer.state:set('inv_busy', true, true)
         Action = action
         SendNUIMessage({
             action = 'progress',
